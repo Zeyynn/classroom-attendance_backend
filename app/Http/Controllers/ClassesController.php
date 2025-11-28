@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classes;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller
 {
     public function index()
     {
-        return response()->json(Classes::all());
+        return response()->json([
+            ['id' => 1, 'class_name' => 'Math 101'],
+            ['id' => 2, 'class_name' => 'Physics 102'],
+        ]);
     }
 }

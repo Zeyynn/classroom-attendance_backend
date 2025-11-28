@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route; --- IGNORE ---
 use App\Http\Controllers\ClassesController;
 
 /*
@@ -14,4 +16,7 @@ use App\Http\Controllers\ClassesController;
 |
 */
 
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 Route::get('/classes', [ClassesController::class, 'index']);
