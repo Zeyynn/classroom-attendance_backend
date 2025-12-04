@@ -13,6 +13,40 @@ class ClassroomSeeder extends Seeder
      */
     public function run(): void
     {
-        Classroom::factory(10)->create();
+        Classroom::create([
+            'classroom_name' => 'Class A - Ambitious',
+            'classroom_description' => 'Accounting Class'
+        ]);
+    
+        Classroom::create([
+            'classroom_name' => 'Class B - Brilliant',
+            'classroom_description' => 'Computer Science Class'
+        ]);
+    
+        Classroom::create([
+            'classroom_name' => 'Class C - Competent',
+            'classroom_description' => 'Economics Class'
+        ]);
+
+        Classroom::create([
+            'classroom_name' => 'Class D - Dynamic',
+            'classroom_description' => 'Science Class'
+        ]);
+
+        Classroom::create([
+            'classroom_name' => 'Class E - Efficient',
+            'classroom_description' => 'Science Below Class'
+        ]);
+
+        Classroom::create([
+            'classroom_name' => 'Class F - Fabulous',
+            'classroom_description' => 'Architecture Class'
+        ]);
+
+        Classroom::create([
+            'classroom_name' => 'Class G - Great',
+            'classroom_description' => 'Arab Class'
+        ]);
     }
+    
 }

@@ -14,7 +14,9 @@ class DemoSeeder extends Seeder
      */
     public function run(): void
     {
-        Classroom::factory(10)->create();
-        Student::factory(10)->create();
+        $this->call([
+            ClassroomSeeder::class,
+            StudentSeeder::class,
+        ]);
     }
 }

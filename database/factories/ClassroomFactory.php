@@ -21,4 +21,12 @@ class ClassroomFactory extends Factory
             'classroom_description' => fake()->sentence(),
         ];
     }
+    // public function configure()
+    // {
+    //     return $this->afterCreating(function (\App\Models\Classroom $classroom) {
+    //         \App\Models\Student::factory(rand(5, 15))->create([
+    //             'classroom_id' => $classroom->id
+    //         ]);
+    //     });
+    // }
 }
