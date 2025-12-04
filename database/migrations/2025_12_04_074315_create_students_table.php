@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('student_name');
             $table->string('student_email')->unique();
             $table->string('student_phone')->nullable();
-            $table->foreignId('classroom_id')->constrained('classrooms')->onDelete('cascade');
+            $table->foreignId('classroom_id')->nullable()->constrained('classrooms')->onDelete('set null');
             $table->timestamps();
         });
     }

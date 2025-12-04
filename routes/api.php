@@ -18,9 +18,23 @@ use App\Http\Controllers\Api\StudentController;
 |
 */
 
+/*
+________  ________  ___          ________  ________  ___  ___  _________  _______
+|\   __  \|\   __  \|\  \        |\   __  \|\   __  \|\  \|\  \|\___   ___\\  ___ \
+\ \  \|\  \ \  \|\  \ \  \       \ \  \|\  \ \  \|\  \ \  \\\  \|___ \  \_\ \   __/|
+\ \   __  \ \   ____\ \  \       \ \   _  _\ \  \\\  \ \  \\\  \   \ \  \ \ \  \_|/__
+\ \  \ \  \ \  \___|\ \  \       \ \  \\  \\ \  \\\  \ \  \\\  \   \ \  \ \ \  \_|\ \
+\ \__\ \__\ \__\    \ \__\       \ \__\\ _\\ \_______\ \_______\   \ \__\ \ \_______\
+\|__|\|__|\|__|     \|__|        \|__|\|__|\|_______|\|_______|    \|__|  \|_______|
+
+*/
+
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+
 Route::get('/classes', [ClassesController::class, 'index']);
 
 Route::apiResource('classrooms', ClassroomController::class);
