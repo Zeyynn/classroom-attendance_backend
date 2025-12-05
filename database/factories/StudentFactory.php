@@ -23,22 +23,4 @@ class StudentFactory extends Factory
             'student_phone' => $this->faker->numerify('01########'),
         ];
     }
-
-    public function adult()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'age' => $this->faker->numberBetween(18, 30),
-            ];
-        });
-    }
-
-    public function minor()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'age' => $this->faker->numberBetween(10, 17),
-            ];
-        });
-    }
 }

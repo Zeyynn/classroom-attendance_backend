@@ -14,7 +14,12 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = \App\Models\Student::with('classroom')->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $students
+        ]);
     }
 
     /**
@@ -22,7 +27,20 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'student_name' => 'required|string|max:255',
+            'student_email' => 'required|email|unique:students',
+            'student_phone' => 'nullable|string|max:255',
+            'classroom_id' => 'nullable|exists:classrooms,id'
+        ]);
+
+        $student = \App\Models\Student::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Student created successfully',
+            'data' => $student->load('classroom')
+        ], 201);
     }
 
     /**
@@ -30,7 +48,19 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = \App\Models\Student::with('classroom')->find($id);
+
+        if (!$student) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Student not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $student
+        ]);
     }
 
     /**
@@ -38,7 +68,29 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $student = \App\Models\Student::with('classroom')->find($id);
+
+        if (!$student) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Student not found'
+            ], 404);
+        } 
+
+        $validated = $request->validate([
+            'student_name' => 'sometimes|required|string|max:255',
+            'student_email' => 'sometimes|required|email|unique:students,student_email,' . $id,
+            'student_phone' => 'sometimes|nullable|string|max:255',
+            'classroom_id' => 'sometimes|nullable|exists:classrooms,id'
+        ]);
+
+        $student->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Student updated successfully',
+            'data' => $student->load('classroom')
+        ]);
     }
 
     /**
@@ -46,27 +98,20 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        $student = \App\Models\Student::with('classroom')->find($id);
 
-    public function assignStudent(Classroom $classroom, Request $request)
-    {
-        $request->validate([
-            'student_id' => 'required|exists:students,id'
-        ]);
-
-        $classroom->students()->syncWithoutDetaching($request->student_id);
+        if (!$student) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Student not found'
+            ], 404);
+        }
+        
+        $student->delete();
 
         return response()->json([
-            'message' => 'Student assigned successfully',
-            'data' => $classroom->students
+            'success' => true,
+            'message' => 'Student deleted successfully'
         ]);
-    }
-
-    public function removeStudent(Classroom $classroom, Student $student)
-    {
-        $classroom->students()->detach($student->id);
-
-        return response()->json(['message' => 'Student removed']);
     }
 }
