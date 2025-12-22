@@ -35,10 +35,10 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-// Studends and Classroom API
-Route::apiResource('classrooms', ClassroomController::class);
-Route::apiResource('students', StudentController::class);
+// // Studends and Classroom API
+// Route::apiResource('classrooms', ClassroomController::class);
+// Route::apiResource('students', StudentController::class);
 
-// Assign and Remove Student from Classroom
-Route::post('classrooms/{classroom}/assign-student', [ClassroomController::class, 'assignStudent']);
-Route::delete('classrooms/{classroom}/remove-student/{student}', [ClassroomController::class, 'removeStudent']);
+// // Assign and Remove Student from Classroom
+// Route::post('classrooms/{classroom}/assign-student', [ClassroomController::class, 'assignStudent']);
+// Route::delete('classrooms/{classroom}/remove-student/{student}', [ClassroomController::class, 'removeStudent']);
