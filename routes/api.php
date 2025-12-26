@@ -55,12 +55,3 @@ ________  ________  ___          ________  ________  ___  ___  _________  ______
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
-
-// // Studends and Classroom API
-// Route::apiResource('classrooms', ClassroomController::class);
-// Route::apiResource('students', StudentController::class);
-
-// // Assign and Remove Student from Classroom
-// Route::post('classrooms/{classroom}/assign-student', [ClassroomController::class, 'assignStudent']);
-// Route::delete('classrooms/{classroom}/remove-student/{student}', [ClassroomController::class, 'removeStudent']);
