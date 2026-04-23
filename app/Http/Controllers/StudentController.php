@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use app\Http\Requests\StudentRequest;
-use app\Models\StudentModel as Student;
+use App\Models\StudentModel;
+use Illuminate\Http\Request;
+
 class StudentController extends Controller
 {
-    public function indexStudent(StudentRequest $request)
+    public function listingStudent(Request $request)
     {
-        $students = Student::all();
+        $students = StudentModel::all();
         return response()->json([
             'students' => $students,
             'message' => 'Students retrieved successfully'
         ]);
     }
 
-    public function showStudent(StudentRequest $request, $student_id)
+    public function detailStudent($student_id)
     {
-        $student = Student::find($student_id);
+        $student = StudentModel::find($student_id);
         if (!$student) {
             return response()->json([
                 'message' => 'Student not found'
@@ -29,9 +31,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function createStudent(StudentRequest $request)
+    public function createStudent(Request $request)
     {
-        Student::create([
+        StudentModel::create([
             'student_name' => $request->name,
             'student_email' => $request->email,
             'matric_no' => $request->matric_no,
@@ -41,9 +43,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function updateStudent (StudentRequest $request, $student_id)
+    public function updateStudent (Request $request, $student_id)
     {
-        $student = Student::find($student_id);
+        $student = StudentModel::find($student_id);
         if (!$student) {
             return response()->json([
                 'message' => 'Student not found'
@@ -59,9 +61,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function deleteStudent(StudentRequest $request, $student_id)
+    public function deleteStudent(Request $request, $student_id)
     {
-        $student = Student::find($student_id);
+        $student = StudentModel::find($student_id);
         if (!$student) {
             return response()->json([
                 'message' => 'Student not found'
