@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentModel extends Model
+class LecturerModel extends Model
 {
-    protected $table = "student";
+    protected $table = "lecturer";
 
-    protected $primaryKey = "student_id";
+    protected $primaryKey = "lecturer_id";
 
     protected $fillable = [
-        'student_name',
-        'student_email',
-        'matric_no',
+        'user_id',
+        'lecturer_name',
+        'department',
     ];
 
     public function class()
