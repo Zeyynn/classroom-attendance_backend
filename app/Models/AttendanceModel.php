@@ -8,6 +8,8 @@ class AttendanceModel extends Model
 {
     protected $table = "attendance";
 
+    protected $primaryKey = "attendance_id";
+
     protected $fillable = [
         'student_id',
         'class_id',

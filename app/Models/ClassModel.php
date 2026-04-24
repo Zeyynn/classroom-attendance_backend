@@ -8,6 +8,8 @@ class ClassModel extends Model
 {
     protected $table = "class";
 
+    protected $primaryKey = "class_id";
+
     protected $fillable = [
         'subject_id',
         'lecturer_id',

@@ -8,6 +8,8 @@ class SubjectModel extends Model
 {
     protected $table = "subject";
 
+    protected $primaryKey = "sub_id";
+
     protected $fillable = [
         'sub_code',
         'sub_name',
