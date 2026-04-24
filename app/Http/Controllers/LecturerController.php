@@ -10,7 +10,10 @@ class LecturerController extends Controller
     public function listingLecturer()
     {
         $lecturers = LecturerModel::all();
-        return response()->json($lecturers);
+        return response()->json([
+            'message' => 'Lecturers retrieved successfully',
+            'lecturers' => $lecturers
+        ]);
     }
 
     public function createLecturer(Request $request)
@@ -26,7 +29,10 @@ class LecturerController extends Controller
             'lecturer_name' => $request->lecturer_name,
             'department' => $request->department,
         ]);
-        return response()->json($lecturer, 201);
+        return response()->json([
+            'lecturer' => $lecturer,
+            'message' => 'Lecturer created successfully'
+        ], 201);
     }
 
     public function detailLecturer($id)
@@ -35,7 +41,10 @@ class LecturerController extends Controller
         if (!$lecturer) {
             return response()->json(['message' => 'Lecturer not found'], 404);
         }
-        return response()->json($lecturer);
+        return response()->json([
+            'lecturer' => $lecturer,
+            'message' => 'Lecturer retrieved successfully'
+        ]);
     }
 
     public function updateLecturer(Request $request, $id)
@@ -52,11 +61,14 @@ class LecturerController extends Controller
         ]);
 
         $lecturer->update([
-            'user_id' => $request->user_id,
-            'lecturer_name' => $request->lecturer_name,
-            'department' => $request->department,
+            'user_id' => $request->user_id ?? $lecturer->user_id,
+            'lecturer_name' => $request->lecturer_name ?? $lecturer->lecturer_name,
+            'department' => $request->department ?? $lecturer->department,
         ]);
-        return response()->json($lecturer);
+        return response()->json([
+            'lecturer' => $lecturer,
+            'message' => 'Lecturer updated successfully'
+        ]);
     }
 
     public function deleteLecturer($id)
@@ -66,6 +78,8 @@ class LecturerController extends Controller
             return response()->json(['message' => 'Lecturer not found'], 404);
         }
         $lecturer->delete();
-        return response()->json(['message' => 'Lecturer deleted']);
+        return response()->json([
+            'message' => 'Lecturer deleted successfully'
+        ]);
     }
 }

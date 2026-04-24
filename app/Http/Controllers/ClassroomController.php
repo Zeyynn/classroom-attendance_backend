@@ -12,8 +12,8 @@ class ClassroomController extends Controller
     {
         $classrooms = ClassModel::all();
         return response()->json([
-            'classrooms' => $classrooms,
-            'message' => 'Classrooms retrieved successfully'
+            'message' => 'Classrooms retrieved successfully',
+            'classrooms' => $classrooms
         ]);
     }
 
@@ -26,14 +26,14 @@ class ClassroomController extends Controller
             ], 404);
         }
         return response()->json([
-            'classroom' => $classroom,
-            'message' => 'Classroom retrieved successfully'
+            'message' => 'Classroom retrieved successfully',
+            'classroom' => $classroom
         ]);
     }
 
     public function createClassroom(ClassroomRequest $request)
     {
-        ClassModel::create([
+        $classroom =ClassModel::create([
             'subject_id' => $request->subject_id,
             'lecturer_id' => $request->lecturer_id,
             'class_name' => $request->class_name,
@@ -41,7 +41,8 @@ class ClassroomController extends Controller
             'location' => $request->location,
         ]);
         return response()->json([
-            'message' => 'Classroom created successfully'
+            'message' => 'Classroom created successfully',
+            'classroom' => $classroom
         ]);
     }
 
@@ -54,14 +55,15 @@ class ClassroomController extends Controller
             ], 404);
         }
         $classroom->update([
-            'subject_id' => $request->subject_id,
-            'lecturer_id' => $request->lecturer_id,
-            'class_name' => $request->class_name,
-            'date' => $request->date,
-            'location' => $request->location,
+            'subject_id' => $request->subject_id ?? $classroom->subject_id,
+            'lecturer_id' => $request->lecturer_id ?? $classroom->lecturer_id,
+            'class_name' => $request->class_name ?? $classroom->class_name,
+            'date' => $request->date ?? $classroom->date,
+            'location' => $request->location ?? $classroom->location,
         ]);
         return response()->json([
-            'message' => 'Classroom updated successfully'
+            'message' => 'Classroom updated successfully',
+            'classroom' => $classroom
         ]);
     }
 

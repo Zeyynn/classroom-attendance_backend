@@ -33,17 +33,18 @@ class StudentController extends Controller
 
     public function createStudent(Request $request)
     {
-        StudentModel::create([
+        $student = StudentModel::create([
             'student_name' => $request->name,
             'student_email' => $request->email,
             'matric_no' => $request->matric_no,
         ]);
         return response()->json([
-            'message' => 'Student created successfully'
-        ]);
+            'message' => 'Student created successfully',
+            'student' => $student
+        ], 201);
     }
 
-    public function updateStudent (Request $request, $student_id)
+    public function updateStudent(Request $request, $student_id)
     {
         $student = StudentModel::find($student_id);
         if (!$student) {
@@ -52,12 +53,13 @@ class StudentController extends Controller
             ], 404);
         }
         $student->update([
-            'student_name' => $request->name,
-            'student_email' => $request->email,
-            'matric_no' => $request->matric_no,
+            'student_name' => $request->name ?? $student->student_name,
+            'student_email' => $request->email ?? $student->student_email,
+            'matric_no' => $request->matric_no ?? $student->matric_no,
         ]);
         return response()->json([
-            'message' => 'Student updated successfully'
+            'message' => 'Student updated successfully',
+            'student' => $student
         ]);
     }
 

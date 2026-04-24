@@ -26,7 +26,10 @@ class AttendanceController extends Controller
             'class_id' => $request->class_id,
             'status' => $request->status,
         ]);
-        return response()->json($attendance, 201);
+        return response()->json([
+            'message' => 'Attendance record created successfully',
+            'attendance' => $attendance
+        ], 201);
     }
 
     public function detailAttendance($id)
@@ -35,7 +38,10 @@ class AttendanceController extends Controller
         if (!$attendance) {
             return response()->json(['message' => 'Attendance record not found'], 404);
         }
-        return response()->json($attendance);
+        return response()->json([
+            'message' => 'Attendance record retrieved successfully',
+            'attendance' => $attendance
+        ]);
     }
 
     public function updateAttendance(Request $request, $id)
@@ -52,11 +58,14 @@ class AttendanceController extends Controller
         ]);
 
         $attendance->update([
-            'student_id' => $request->student_id,
-            'class_id' => $request->class_id,
-            'status' => $request->status,
+            'student_id' => $request->student_id ?? $attendance->student_id,
+            'class_id' => $request->class_id ?? $attendance->class_id,
+            'status' => $request->status ?? $attendance->status,
         ]);
-        return response()->json($attendance);
+        return response()->json([
+            'message' => 'Attendance record updated successfully',
+            'attendance' => $attendance
+        ]);
     }
 
     public function deleteAttendance($id)
@@ -66,6 +75,8 @@ class AttendanceController extends Controller
             return response()->json(['message' => 'Attendance record not found'], 404);
         }
         $attendance->delete();
-        return response()->json(['message' => 'Attendance record deleted successfully']);
+        return response()->json([
+            'message' => 'Attendance record deleted successfully'
+        ]);
     }
 }
