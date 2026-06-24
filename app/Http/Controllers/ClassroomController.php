@@ -8,7 +8,7 @@ use App\Models\ClassModel;
 
 class ClassroomController extends Controller
 {
-    public function indexClassroom(ClassroomRequest $request)
+    public function listingClassroom()
     {
         $classrooms = ClassModel::all();
         return response()->json([
@@ -17,7 +17,7 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function showClassroom(ClassroomRequest $request, $class_id)
+    public function detailClassroom($class_id)
     {
         $classroom = ClassModel::find($class_id);
         if (!$classroom) {
@@ -31,7 +31,7 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function createClassroom(ClassroomRequest $request)
+    public function createClassroom(Request $request)
     {
         $classroom =ClassModel::create([
             'subject_id' => $request->subject_id,
@@ -46,7 +46,7 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function updateClassroom(ClassroomRequest $request, $class_id)
+    public function updateClassroom(Request $request, $class_id)
     {
         $classroom = ClassModel::find($class_id);
         if (!$classroom) {
@@ -67,7 +67,7 @@ class ClassroomController extends Controller
         ]);
     }
 
-    public function deleteClassroom(ClassroomRequest $request, $class_id)
+    public function deleteClassroom(Request $request, $class_id)
     {
         $classroom = ClassModel::find($class_id);
         if (!$classroom) {

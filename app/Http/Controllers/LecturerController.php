@@ -15,7 +15,7 @@ class LecturerController extends Controller
             'lecturers' => $lecturers
         ]);
     }
-
+    
     public function createLecturer(Request $request)
     {
         $request->validate([

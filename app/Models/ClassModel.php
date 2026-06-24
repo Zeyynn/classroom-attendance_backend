@@ -13,6 +13,7 @@ class ClassModel extends Model
     protected $fillable = [
         'subject_id',
         'lecturer_id',
+        'class_name',
         'date',
         'location',
     ];
